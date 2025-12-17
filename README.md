@@ -26,7 +26,7 @@ To successfully set up and test the project, follow these steps within your ROS 
     ```shell
      cd ..
      colcon build
-     . install/setup.bash
+     source install/setup.bash
     ```
  
  
