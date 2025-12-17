@@ -4,7 +4,9 @@
  
 ## Introduction
 This project presents a collaborative warehouse automation system developed within the ROS 2 framework and simulated using Gazebo. 
+
 It orchestrates a seamless workflow between a KUKA IIWA manipulator and a Fra2Mo mobile robot to handle autonomous sorting and delivery tasks. 
+
 The IIWA arm identifies specific parcels—such as medicine, toys, or clothes—using Aruco markers (IDs 1, 2, and 3) and manages the picking process through a KDL-based action server. Once the parcel is loaded, the mission is handed over to the Fra2Mo robot, which utilizes the Nav2 stack and Lidar data for autonomous navigation and obstacle avoidance. For final delivery, the mobile robot performs precision docking at designated zones (IDs 11-14) using visual servoing.
 
 ---
