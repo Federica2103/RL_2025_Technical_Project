@@ -1,10 +1,9 @@
-# RL_2025_HW03
+# RL_2025_TECHNICAL PROJECT
 
-# 🤖 Robotics Lab - Homework 3: Fly your drone
+# 🤖 Robotics Lab - Final Project: Robotic Warehouse
  
 ## Introduction
-This repository contains the source code and configuration files developed for the simulation of a custom multi-rotor drone and the implementation of control logic and trajectory planning using **PX4-Autopilot** and the Offboard mode.
- 
+This project presents a collaborative warehouse automation system developed within the ROS 2 framework and simulated using Gazebo. It orchestrates a seamless workflow between a KUKA IIWA manipulator and a Fra2Mo mobile robot to handle autonomous sorting and delivery tasks. The IIWA arm identifies specific parcels—such as medicine, toys, or clothes—using Aruco markers (IDs 1, 2, and 3) and manages the picking process through a KDL-based action server. Once the parcel is loaded, the mission is handed over to the Fra2Mo robot, which utilizes the Nav2 stack and Lidar data for autonomous navigation and obstacle avoidance. For final delivery, the mobile robot performs precision docking at designated zones (IDs 11-14) using visual servoing.
 ---
  
  
@@ -12,30 +11,18 @@ This repository contains the source code and configuration files developed for t
  
 To successfully set up and test the project, follow these steps within your ROS 2 workspace.
  
-1.  **Clone the Repository: Navigate to your workspace source directory and clone the repository.**
+1.  **Clone the Repository**
     ```shell
     cd /ros2_ws
     git clone https://github.com/Federica2103/RL_2025_HW03.git
-    git clone https://github.com/PX4/PX4-Autopilot.git --recursive
-    cd PX4-Autopilot
-    git checkout v1.16.0
-    cd ..
-    git clone https://github.com/PX4/px4_msgs.git
-    cd px4_msgs
-    git checkout release/1.16
     ```
 
-2.  **Replace the correct files**
-    Update the original **PX4-Autopilot** folder by copying the corresponding files from **RL2025HW03/PX4-Autopilot** over them.
-    
-3.  **Build the Workspace: Return to the workspace root, build the packages, and source the environment.**
+2.  **Build the Workspace: Return to the workspace root, build the packages, and source the environment.**
     ```shell
      cd ..
      colcon build
      . install/setup.bash
     ```
-    
-4.  **Launch QGroundControl: Ensure your ground control station is running to monitor the drone status.**
  
  
 ## 🏃 Execution Instructions
