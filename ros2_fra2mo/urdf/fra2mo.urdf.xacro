@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="fra2mo" >
+  <xacro:include filename="$(find ros2_fra2mo)/urdf/fra2mo_base_macro.xacro"/>
+  <xacro:include filename="$(find ros2_fra2mo)/urdf/lidar_gazebo_macro.xacro"/> 
+  <xacro:include filename="$(find ros2_fra2mo)/urdf/camera.xacro"/> 
+  
+  <xacro:property name="LIDAR" value="True"/>
+  <xacro:property name="CAMERA" value="True"/>
+  <!--<xacro:property name="DEPTH" value="True"/>-->
+  
+  <!-- Diff Drive Robot Base -->
+  <xacro:fra2mo_base/>
+
+  <!-- LIDAR Sensor--> 
+  <xacro:if value="${LIDAR}">
+    <xacro:lidar_gazebo_sensor parent="lidar_link"/>
+  </xacro:if>
+
+  <!-- RGBD Sensor (D435 Camera) -->
+  <!-- Camera Sensor-->
+  <xacro:if value="${CAMERA}">
+    <xacro:camera_gazebo_sensor parent="base_link"/>
+  </xacro:if>
+
+  <!-- DATACHABLE JOINT -->
+     <gazebo>
+      <plugin filename="ignition-gazebo-detachable-joint-system" name="ignition::gazebo::systems::DetachableJoint">
+          <parent_link>base_footprint</parent_link>
+          <child_model>box_medicine</child_model>
+          <child_link>ee_1</child_link>
+          <detach_topic>/model/fra2mo/detachable_joint/box_medicine/detach</detach_topic>
+          <attach_topic>/model/fra2mo/detachable_joint/box_medicine/attach</attach_topic>
+          <suppress_child_collision>true</suppress_child_collision>
+      </plugin>
+
+      <plugin filename="ignition-gazebo-detachable-joint-system" name="ignition::gazebo::systems::DetachableJoint">
+          <parent_link>base_footprint</parent_link>
+          <child_model>box_toys</child_model>
+          <child_link>ee_2</child_link>
+          <detach_topic>/model/fra2mo/detachable_joint/box_toys/detach</detach_topic>
+          <attach_topic>/model/fra2mo/detachable_joint/box_toys/attach</attach_topic>
+          <suppress_child_collision>true</suppress_child_collision>
+      </plugin>
+
+      <plugin filename="ignition-gazebo-detachable-joint-system" name="ignition::gazebo::systems::DetachableJoint">
+          <parent_link>base_footprint</parent_link>
+          <child_model>box_clothes</child_model>
+          <child_link>ee_3</child_link>
+          <detach_topic>/model/fra2mo/detachable_joint/box_clothes/detach</detach_topic>
+          <attach_topic>/model/fra2mo/detachable_joint/box_clothes/attach</attach_topic>
+          <suppress_child_collision>true</suppress_child_collision>
+      </plugin>
+  </gazebo>
+
+</robot>
+

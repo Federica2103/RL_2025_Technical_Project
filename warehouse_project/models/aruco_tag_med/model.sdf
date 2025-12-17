@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <model name="aruco_tag_med">
+    <static>false</static> <!-- Mettiamo false così iiwa può spostarlo -->
+    <link name="ee_1">
+      <!-- Inerzia: necessaria se l'oggetto non è statico -->
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.00004</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00004</iyy>
+          <iyz>0</iyz>
+          <izz>0.00004</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="box_visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.05</size> 
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <pbr>
+            <metal>
+              <albedo_map>model://aruco_tag_med/aruco-1.png</albedo_map>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+
+      <collision name="box_collision">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.05</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+    </link>
+  </model>
+</sdf>

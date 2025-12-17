@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="camera_gazebo_sensor" params="parent">
+    
+    <joint name="fra2mo_camera_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="fra2mo_camera_link"/> <origin xyz="0.100925 0.0 0.07670" rpy="0 0 0" />
+    </joint>
+    
+    <link name="fra2mo_camera_link">
+      <visual>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+        <material name="Red"/>
+      </visual>
+    </link>
+
+    <joint name="fra2mo_camera_optical_joint" type="fixed">
+        <parent link="fra2mo_camera_link"/> <child link="fra2mo_camera_link_optical"/>
+        <origin xyz="0 0 0" rpy="${-M_PI_2} 0 ${-M_PI_2}"/>
+    </joint>
+
+    <link name="fra2mo_camera_link_optical"></link>
+
+    <gazebo reference="fra2mo_camera_link">
+    
+        <material>Gazebo/Red</material>
+
+        <sensor name="camera" type="camera">
+            <camera>
+              <horizontal_fov>1.047</horizontal_fov>
+              <image>
+                  <width>320</width> 
+                  <height>240</height>
+              </image>
+              <clip>
+                  <near>0.1</near>
+                  <far>100</far>
+              </clip>
+           </camera>
+           <always_on>1</always_on>
+           <update_rate>5</update_rate> 
+           <visualize>true</visualize>
+           <topic>fra2mo/camera</topic>
+        </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

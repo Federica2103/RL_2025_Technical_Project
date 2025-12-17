@@ -1,0 +1,310 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+
+  <world name="warehouse">
+    <!-- Included light -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sun</uri>
+    </include>
+ 
+    <!-- Included model pavimento -->
+    <model name='custom_ground_plane'>
+      <static>true</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <surface><friction><ode><mu>100</mu><mu2>50</mu2></ode></friction></surface>
+        </collision>
+        <visual name='visual'>
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material>
+            <ambient>0.95 0.9 0.6 1</ambient>
+            <diffuse>0.95 0.9 0.6 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ========================================= -->
+    <!-- MURA -->
+    <!-- ========================================= -->
+
+    <!-- MURO NORD (A SINISTRA) -->
+    <model name='wall_north'>
+      <static>1</static>
+      <pose>0 22.96 5.0 0 0 0</pose> 
+      <link name='link'>
+        <collision name='collision'>
+          <geometry><box><size>20 0.5 10</size></box></geometry> 
+        </collision>
+        <visual name='visual'>
+          <geometry><box><size>20 0.5 10</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- MURO SUD A DESTRA -->
+    <model name='wall_south_1'>
+      <static>1</static>
+      <pose>-5.5 -22.73 5.0 0 0 0</pose> <link name='link'>
+        <collision name='collision'>
+          <geometry><box><size>9 0.5 10</size></box></geometry> </collision>
+        <visual name='visual'>
+          <geometry><box><size>9 0.5 10</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name='wall_south_2'>
+      <static>1</static>
+      <pose>5.5 -22.73 5.0 0 0 0</pose> <link name='link'>
+        <collision name='collision'>
+          <geometry><box><size>9 0.5 10</size></box></geometry> </collision>
+        <visual name='visual'>
+          <geometry><box><size>9 0.5 10</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- MURO EST SOPRA -->
+    <model name='wall_east'>
+      <static>1</static>
+      <pose>10.25 0.0 5.0 0 0 0</pose> 
+      <link name='link'>
+        <collision name='collision'>
+          <geometry><box><size>0.5 46.3 10</size></box></geometry> 
+        </collision>
+        <visual name='visual'>
+          <geometry><box><size>0.5 46.3 10</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- MURO OVEST SOTTO -->
+    <model name='wall_west'>
+      <static>1</static>
+      <pose>-10.25 0 5.0 0 0 0</pose> 
+      <link name='link'>
+        <collision name='collision'>
+          <geometry><box><size>0.5 46.3 10</size></box></geometry> 
+        </collision>
+        <visual name='visual'>
+          <geometry><box><size>0.5 46.3 10</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ========================================= -->
+    <!-- SCAFFALI -->
+    <!-- ========================================= -->
+
+    <!-- SCAFFALE IN BASSO A DESTRA -->
+    <include>
+        <name>shelf_DX1</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/shelf_big</uri>
+        <pose>-5.60 -11.38 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <!-- SCAFFALE IN BASSO A SINISTRA-->
+    <include>
+        <name>shelf_SX1</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/shelf_big</uri>
+        <pose>-5.60 11.86 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <!-- SCAFFALE IN ALTO A DESTRA -->
+    <include>
+        <name>shelf_DX2</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/shelf_big</uri>
+        <pose>5.60 -11.38 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <!-- SCAFFALE IN ALTO A SINISTRA -->
+    <include>
+        <name>shelf_SX2</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/shelf_big</uri>
+        <pose>5.60 11.86 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <!-- SCAFFALE CENTRO -->
+    <include>
+        <name>shelf_C</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/shelf_big</uri>
+        <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+
+    <!-- ========================================= -->
+    <!-- SCATOLE IN ALTO A SINISTRA -->
+    <!-- ========================================= -->
+    <include>
+        <name>BOX_SX2.1</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/pallet_box_mobile</uri>
+        <pose>-1.45 17.70 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <include>
+        <name>BOX_SX2.3</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/pallet_box_mobile</uri>
+        <pose>-1.45 15.70 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <include>
+        <name>BOX_SX2.4</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/pallet_box_mobile</uri>
+        <pose>1.51 14.66 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <include>
+        <name>BOX_SX2.5</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/pallet_box_mobile</uri>
+        <pose>1.51 13.30 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+    <include>
+        <name>BOX_SX2.6</name>
+        <uri>https://fuel.gazebosim.org/1.0/MovAi/models/pallet_box_mobile</uri>
+        <pose>1.51 12.07 0.00 0.00 0.00 0.00</pose>
+    </include>
+
+
+    <!-- ========================================= -->
+    <!-- ZONE DI DEPOSITO (Colorate a terra)       -->
+    <!-- ========================================= -->
+    
+    <!-- ZONA 1 IN ALTO A SX-->
+    <model name='platform_1'>
+      <static>1</static>
+      <pose>9.35 5.42 -0.001 0 0 0</pose> 
+      <link name='link'>
+        <visual name='visual'>
+          <geometry><box><size>1 1 0.01</size></box></geometry>
+          <material><ambient>1 0 0 1</ambient><diffuse>1 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- ZONA 2 IN ALTO A DX-->
+    <model name='platform_2'>
+      <static>1</static>
+      <pose>9.35 -13.79 -0.001 0 0 0</pose> 
+      <link name='link'>
+        <visual name='visual'>
+          <geometry><box><size>1 1 0.01</size></box></geometry>
+          <material><ambient>0 1 0 1</ambient><diffuse>0 1 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+  
+    <!-- ZONA 3 IN BASSO A SX-->
+    <model name='platform_3'>
+      <static>1</static>
+      <pose>-9.35 -0.54 -0.001 0 0 0</pose> 
+      <link name='link'>
+        <visual name='visual'>
+          <geometry><box><size>1 1 0.01</size></box></geometry>
+          <material><ambient>0 0 1 1</ambient><diffuse>0 0 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- ========================================= -->
+    <!-- TAVOLINO CON PRODOTTI -->
+    <!-- ========================================= -->
+
+    <!-- BOXES -->
+    <include>
+      <name>boxes</name>
+      <uri>https://fuel.gazebosim.org/1.0/MovAi/models/pallet_box_mobile</uri>
+      <pose>-0.40 -17.79 0.0 0 0 0</pose>
+    </include> 
+
+    <!-- PIANO TAVOLO -->
+    <model name='aruco_platform'>
+      <static>1</static>
+      <pose>-0.37 -18.53 0.0375 0 0 0</pose> 
+      <link name='link'>
+        <visual name='visual'>
+          <geometry><box><size>0.5 0.5 0.075</size></box></geometry>
+          <material>
+            <ambient>0.5 0.3 0.1 1</ambient>
+            <diffuse>0.5 0.3 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name='collision'>
+          <geometry><box><size>0.5 0.5 0.075</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- PACCO 1: MEDICINE (ArUco ID 1-primo a sx nella cam iiwa) -->
+    <include>
+      <name>box_medicine</name>
+      <uri>model://aruco_tag_med</uri>
+      <pose>-0.47 -18.75 0.10 0 0 0</pose>
+    </include> 
+
+    <!-- PACCO 2: GIOCATTOLI (ArUco ID 2- centro nella cam) -->
+    <include>
+      <name>box_toys</name>
+      <uri>model://aruco_tag_toys</uri>
+      <pose>-0.37 -18.75 0.10 0 0 0</pose>
+    </include> 
+
+    <!-- PACCO 3: VESTITI (ArUco ID 3-ultimo a dx nella cam iiwa) -->
+    <include>
+      <name>box_clothes</name>
+      <uri>model://aruco_tag_clothes</uri>
+      <pose>-0.27 -18.75 0.10 0 0 0</pose> 
+    </include>
+    
+    
+    <!-- ========================================= -->
+    <!-- ARUCO TAG PER FRA2MO -->
+    <!-- ========================================= -->
+    
+    <!-- IIWA -->
+    <include>
+      <uri>
+        model://aruco_iiwa
+      </uri>
+      <name>aruco_iiwa</name>
+       <pose>-0.25 -19.31 0.15 0 1.57 0</pose> 
+    </include> 
+    
+    <!-- ZONA ROSSA -->
+    <include>
+      <uri>
+        model://aruco_red
+      </uri>
+      <name>aruco_red</name>
+       <pose>9.95 5.42 0.2 -0.25 1.57 0</pose> 
+    </include>
+    
+    <!-- ZONA VERDE -->
+    <include>
+      <uri>
+        model://aruco_green
+      </uri>
+      <name>aruco_green</name>
+       <pose>9.95 -13.79 0.2 -0.25 1.57 0</pose> 
+    </include>
+    
+    <!-- ZONA BLU -->
+    <include>
+      <uri>
+        model://aruco_blue
+      </uri>
+      <name>aruco_blue</name>
+       <pose>-10.0 -0.54 0.2 0 1.57 0</pose> 
+    </include>
+
+
+  </world>
+</sdf>
