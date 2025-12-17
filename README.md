@@ -3,18 +3,21 @@
 # 🤖 Robotics Lab - Final Project: Robotic Warehouse
  
 ## Introduction
-This project presents a collaborative warehouse automation system developed within the ROS 2 framework and simulated using Gazebo. It orchestrates a seamless workflow between a KUKA IIWA manipulator and a Fra2Mo mobile robot to handle autonomous sorting and delivery tasks. The IIWA arm identifies specific parcels—such as medicine, toys, or clothes—using Aruco markers (IDs 1, 2, and 3) and manages the picking process through a KDL-based action server. Once the parcel is loaded, the mission is handed over to the Fra2Mo robot, which utilizes the Nav2 stack and Lidar data for autonomous navigation and obstacle avoidance. For final delivery, the mobile robot performs precision docking at designated zones (IDs 11-14) using visual servoing.
+This project presents a collaborative warehouse automation system developed within the ROS 2 framework and simulated using Gazebo. 
+It orchestrates a seamless workflow between a KUKA IIWA manipulator and a Fra2Mo mobile robot to handle autonomous sorting and delivery tasks. 
+The IIWA arm identifies specific parcels—such as medicine, toys, or clothes—using Aruco markers (IDs 1, 2, and 3) and manages the picking process through a KDL-based action server. Once the parcel is loaded, the mission is handed over to the Fra2Mo robot, which utilizes the Nav2 stack and Lidar data for autonomous navigation and obstacle avoidance. For final delivery, the mobile robot performs precision docking at designated zones (IDs 11-14) using visual servoing.
+
 ---
  
  
 ## ⚙️ Getting Started
  
-To successfully set up and test the project, follow these steps within your ROS 2 workspace.
+To successfully set up and test the project, follow these steps within your ROS 2 workspace. 
  
 1.  **Clone the Repository**
     ```shell
     cd /ros2_ws
-    git clone https://github.com/Federica2103/RL_2025_HW03.git
+    git clone https://github.com/Federica2103/RL_2025_Technical_Project.git
     ```
 
 2.  **Build the Workspace: Return to the workspace root, build the packages, and source the environment.**
@@ -27,38 +30,34 @@ To successfully set up and test the project, follow these steps within your ROS 
  
 ## 🏃 Execution Instructions
  
-This section details the commands to launch and test the custom y6 hexacopter drone model and the developed control nodes.
+To properly initiate the collaborative mission between the two robots, the following commands must be executed in separate terminals.
  
-## **1. Basic Flight and Custom Airframe Setup**
-Start the drone simulation in Gazebo using the custom airframe configuration. This will put the drone in a Position Flight Mode for manual control and allow you to verify the custom model.
-**Launch PX4 SITL and Gazebo**
+## **1. Environment and Gazebo Simulation Setup**
+This command initializes the warehouse environment, loads the robot models (IIWA and Fra2Mo), and starts aruco nodes.
 ```shell
-cd src/PX4-Autopilot
-make px4_sitl gz_y6_hexacopter
-```
-In another terminal, source the DDS Configuration: Execute the necessary script to correctly set up the DDS communication between ROS 2 and PX4:
-```shell
-. install/setup.bash
-cd src
-. DDS_run.sh 
+ros2 launch warehouse_project warehouse_launch.py
 ```
  
-The drone can now be controlled via virtual joystick (QGroundControl) or commands from the PX4 shell.
- 
-## **2. Enhanced Landing Safety Logic**
-A specific modification has been implemented in the landing node logic to enhance robustness. This change prevents the automatic forced-landing procedure from being re-triggered if a pilot temporarily retakes manual control but fails to complete the landing immediately.
- 
-After launching the drone in Gazebo, source the enviroment and DDS configuration (repeat step 1), run this node in a new terminal:
- 
+## **2. KDL Action Server Configuration (IIWA)**
+This launches the action server based on the KDL library to manage the kinematics and motion control for the IIWA manipulator arm.
 ```shell
-ros2 run force_land force_land
+ros2 launch ros2_kdl_package kdl_action.launch.py
 ```
  
-## **3. Trajectory Planner Execution**
-This section demonstrates the Offboard control capabilities. The trajectory planner guides the drone through a sequence of complex waypoints, maintaining a continuous, non-zero velocity profile between intermediate points for smooth flight.
- 
-After the drone is flying and armed (usually done via QGroundControl after launching step 1), run the planner in a new terminal:
- 
+## **3. Autonomous Navigation Activation (Fra2Mo)**
+This initializes the Nav2 stack, loading the warehouse map and configuring the localization systems required for the mobile robot's movement.
 ```shell
-ros2 run offboard_rl trajectory_planner
+ros2 launch ros2_fra2mo fra2mo_navigation.launch.py
+```
+
+## **4. Fra2Mo Task Manager Execution**
+This starts the node responsible for delivery logic, visual docking via Aruco markers, and synchronization with the manipulator arm.
+```shell
+ros2 run warehouse_project fra2mo_task_manager.cpp
+```
+
+## **5. IIWA Task Manager Execution**
+This activates the robotic arm supervisor, which coordinates the object-picking phases and triggers the transportation missions.
+```shell
+ros2 run warehouse_project iiwa_task_manager.cpp
 ```
