@@ -24,7 +24,6 @@ To successfully set up and test the project, follow these steps within your ROS 
 
 2.  **Build the Workspace: Return to the workspace root, build the packages, and source the environment.**
     ```shell
-     cd ..
      colcon build
      source install/setup.bash
     ```
